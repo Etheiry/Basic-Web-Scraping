@@ -1,27 +1,11 @@
-from urllib.request import urlopen
-import re
-
-url = "http://olympus.realpython.org/profiles/poseidon"
-page = urlopen(url)
-
-htmlBytes = page.read()
-html = htmlBytes.decode("utf-8")
+import scrap as scrap
 
 
-def patterns(options):
 
-    if options == "title":
-        getTitle()
+pat = "<.*?>Name:.*?</.*?>"
 
 
-def getTitle():
-    titlePat = "<title.*?>.*?</title.*?>"
-    
-    results = re.search(titlePat, html, re.IGNORECASE)
-    title = results.group()
-    title = re.sub("<.*?>", "", title)
+html = scrap.Target("http://olympus.realpython.org/profiles/dionysus")
+scrap.Search(pat, html)
 
-    print(title)
-
-patterns("title")
 
