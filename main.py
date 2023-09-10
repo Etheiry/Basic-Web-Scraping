@@ -8,11 +8,20 @@ htmlBytes = page.read()
 html = htmlBytes.decode("utf-8")
 
 
+def patterns(options):
+
+    if options == "title":
+        getTitle()
+
+
 def getTitle():
-    titleIndex = html.find("<title>") + len("<title>")
-    titleEndIndex = html.find("</title>")
-    title = html[titleIndex:titleEndIndex]
+    titlePat = "<title.*?>.*?</title.*?>"
+    
+    results = re.search(titlePat, html, re.IGNORECASE)
+    title = results.group()
+    title = re.sub("<.*?>", "", title)
+
     print(title)
 
-print(html)
+patterns("title")
 
